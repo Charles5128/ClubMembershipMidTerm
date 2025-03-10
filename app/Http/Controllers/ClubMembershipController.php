@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\ClubMembership;
@@ -38,7 +39,7 @@ class ClubMembershipController extends Controller
     public function edit(ClubMembership $clubMembership)
     {
         if (!Auth::user()->hasRole('Administrator')) {
-            abort(403);
+            abort(403, 'Unauthorized access.');
         }
         return view('club_memberships.edit', compact('clubMembership'));
     }
@@ -46,7 +47,7 @@ class ClubMembershipController extends Controller
     public function update(Request $request, ClubMembership $clubMembership)
     {
         if (!Auth::user()->hasRole('Administrator')) {
-            abort(403);
+            abort(403, 'Unauthorized action.');
         }
 
         $request->validate([
@@ -62,7 +63,7 @@ class ClubMembershipController extends Controller
     public function destroy(ClubMembership $clubMembership)
     {
         if (!Auth::user()->hasRole('Administrator')) {
-            abort(403);
+            abort(403, 'Unauthorized action.');
         }
 
         $clubMembership->delete();
